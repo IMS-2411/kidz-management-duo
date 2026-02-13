@@ -17,6 +17,7 @@ export default function Header() {
             <nav className="desktop-nav">
                 <Link href="/#portfolio">Portfolio</Link>
                 <Link href="/publications">Publications</Link>
+                <Link href="/contact">Contact</Link>
                 <Link href="/#booking">Book Shoot</Link>
             </nav>
 
@@ -33,6 +34,7 @@ export default function Header() {
             <div className={`mobile-menu-overlay ${isOpen ? 'open' : ''}`}>
                 <Link href="/#portfolio" onClick={() => setIsOpen(false)}>Portfolio</Link>
                 <Link href="/publications" onClick={() => setIsOpen(false)}>Publications</Link>
+                <Link href="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
                 <Link href="/#booking" onClick={() => setIsOpen(false)}>Book Shoot</Link>
             </div>
         </header>

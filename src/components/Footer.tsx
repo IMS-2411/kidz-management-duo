@@ -21,7 +21,7 @@ export default function Footer() {
                     <a href="https://kidzzz.amsterdam" target="_blank" rel="noopener noreferrer" style={{ borderBottom: '1px solid transparent', color: 'inherit', textDecoration: 'none' }}>
                         Webshop
                     </a>
-                    <Link href="/#contact" style={{ borderBottom: '1px solid transparent', color: 'inherit', textDecoration: 'none' }}>
+                    <Link href="/contact" style={{ borderBottom: '1px solid transparent', color: 'inherit', textDecoration: 'none' }}>
                         Contact
                     </Link>
                     <Link href="/terms" style={{ borderBottom: '1px solid transparent', color: 'inherit', textDecoration: 'none' }}>
