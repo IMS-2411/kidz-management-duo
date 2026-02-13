@@ -23,7 +23,7 @@ export default function InstagramFeed() {
             </div>
 
             <div className="container">
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
+                <div className="instagram-grid">
                     {feedImages.map((src, index) => (
                         <motion.a
                             key={index}
