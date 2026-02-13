@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 const feedImages = [
     '/images/instagram/feed-1.png',
     '/images/instagram/feed-2.png',
-    '/images/instagram/feed-3.png',
-    '/images/instagram/feed-4.png',
+    '/images/instagram/feed-3-new.png',
+    '/images/instagram/feed-4-new.png',
 ];
 
 export default function InstagramFeed() {
