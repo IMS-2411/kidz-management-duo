@@ -9,10 +9,7 @@ export default function Header() {
             <nav>
                 <Link href="/#portfolio">Portfolio</Link>
                 <Link href="/publications">Publications</Link>
-                <Link href="/scouting">Get Scouted</Link>
-                <a href="https://kidzzz.amsterdam" target="_blank" rel="noopener noreferrer">Webshop</a>
                 <Link href="/#booking">Book Shoot</Link>
-                <Link href="/#contact">Contact</Link>
             </nav>
         </header>
     );

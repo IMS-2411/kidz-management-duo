@@ -1,6 +1,7 @@
 import HeroSlider from '../components/HeroSlider';
 import PortfolioGrid from '../components/PortfolioGrid';
 import BookingSection from '../components/BookingSection';
+import InstagramFeed from '../components/InstagramFeed';
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <HeroSlider />
       <PortfolioGrid />
       <BookingSection />
+      <InstagramFeed />
     </>
   );
 }
