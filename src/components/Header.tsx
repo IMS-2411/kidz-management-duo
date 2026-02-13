@@ -4,7 +4,7 @@ export default function Header() {
     return (
         <header>
             <Link href="/" className="logo">
-                Duo-kidz
+                Kidz Management
             </Link>
             <nav>
                 <Link href="/#portfolio">Portfolio</Link>
