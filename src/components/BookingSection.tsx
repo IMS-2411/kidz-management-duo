@@ -88,7 +88,7 @@ export default function BookingSection() {
 
                     <div style={{ marginTop: '2rem' }}>
                         <p style={{ color: 'var(--color-text)', fontWeight: 700, marginBottom: '0.5rem' }}>Contact</p>
-                        <a href="mailto:email@duo-kidz.nl" style={{ color: 'var(--color-accent)', fontWeight: 700 }}>email@duo-kidz.nl</a>
+                        <a href="mailto:info@kidzmanagement.nl" style={{ color: 'var(--color-accent)', fontWeight: 700 }}>info@kidzmanagement.nl</a>
                     </div>
                 </div>
 
