@@ -15,6 +15,9 @@ export default function Footer() {
                 <p style={{ opacity: 0.6 }}>&copy; 2026 Kidz Management B.V. All rights reserved.</p>
 
                 <div style={{ marginTop: '1rem', fontSize: '0.8rem' }}>
+                    <a href="https://kidzzz.amsterdam" target="_blank" rel="noopener noreferrer" style={{ marginRight: '1rem', borderBottom: '1px solid transparent' }}>
+                        Webshop
+                    </a>
                     <Link href="/terms" style={{ marginRight: '1rem', borderBottom: '1px solid transparent' }}>
                         Terms & Conditions
                     </Link>
