@@ -2,11 +2,7 @@
 
 import { useState } from 'react';
 import Flatpickr from 'react-flatpickr';
-import { loadStripe } from '@stripe/stripe-js';
 import 'flatpickr/dist/themes/light.css';
-
-// Replace with your Stripe Public Key
-const stripePromise = loadStripe('pk_test_ADD_YOUR_KEY_HERE');
 
 export default function BookingSection() {
     const [date, setDate] = useState<Date | null>(null);
