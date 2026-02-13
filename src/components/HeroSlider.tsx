@@ -55,7 +55,7 @@ export default function HeroSlider() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 1 }}
                 >
-                    Moments in Motion
+                    Face Fuzion
                 </motion.h1>
                 <motion.p
                     initial={{ opacity: 0, y: 30 }}
