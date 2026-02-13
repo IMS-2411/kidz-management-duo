@@ -14,7 +14,7 @@ export default function Footer() {
 
                 <p style={{ opacity: 0.6 }}>&copy; 2026 Kidz Management B.V. All rights reserved.</p>
 
-                <div style={{ marginTop: '1rem', fontSize: '0.8rem', display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                <div style={{ marginTop: '1rem', fontSize: '0.8rem', display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
                     <Link href="/scouting" style={{ borderBottom: '1px solid transparent', color: 'inherit', textDecoration: 'none' }}>
                         Get Scouted
                     </Link>
