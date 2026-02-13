@@ -9,7 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@stripe/stripe-js": "8.7.0",
+    "@mollie/api-client": "4.4.0",
+    "@vercel/postgres": "0.10.0",
     "flatpickr": "4.6.13",
     "framer-motion": "12.34.0",
     "lucide-react": "0.563.0",
@@ -17,7 +18,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-flatpickr": "4.0.11",
-    "stripe": "20.3.1"
+    "resend": "6.9.2"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,42 +1,58 @@
+import { createMollieClient } from '@mollie/api-client';
 import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
+import { createBooking } from '@/lib/db';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder', {
-    // apiVersion: '2023-10-16',
+const mollieClient = createMollieClient({
+    apiKey: process.env.MOLLIE_API_KEY || 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM',
 });
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
     try {
-        const { date, time } = await req.json();
+        const body = await request.json();
+        const { duoName, names, email, date, time } = body;
 
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card', 'ideal'],
-            line_items: [
-                {
-                    price_data: {
-                        currency: 'eur',
-                        product_data: {
-                            name: 'Duo Photoshoot Booking',
-                            description: `Booking for ${date} at ${time}`,
-                        },
-                        unit_amount: 15000, // €150.00
-                    },
-                    quantity: 1,
-                },
-            ],
-            mode: 'payment',
-            // Dynamic success/cancel URLs based on origin
-            success_url: `${req.headers.get('origin')}/success`,
-            cancel_url: `${req.headers.get('origin')}/cancel`,
+        const totalAmount = 300.00;
+        const depositAmount = totalAmount / 2; // 50% Deposit
+
+        // 1. Create Mollie Payment for Deposit
+        const payment = await mollieClient.payments.create({
+            amount: {
+                currency: 'EUR',
+                value: depositAmount.toFixed(2),
+            },
+            description: `Deposit: Duo Shoot - ${duoName} (${date})`,
+            redirectUrl: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://kidz-management-duo.vercel.app'}/success`,
+            cancelUrl: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://kidz-management-duo.vercel.app'}/cancel`,
+            webhookUrl: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://kidz-management-duo.vercel.app'}/api/webhooks/mollie`,
             metadata: {
-                bookingDate: date,
-                bookingTime: time,
+                duoName,
+                email,
+                date,
+                type: 'deposit'
             },
         });
 
-        return NextResponse.json({ id: session.id, url: session.url });
-    } catch (error: any) {
-        console.error('Stripe API Error:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        // 2. Store Booking in Database
+        await createBooking(
+            duoName,
+            names,
+            email,
+            date,
+            time,
+            depositAmount,
+            totalAmount,
+            payment.id
+        );
+
+        return NextResponse.json({
+            checkoutUrl: payment.getCheckoutUrl()
+        });
+
+    } catch (error) {
+        console.error('API Error:', error);
+        return NextResponse.json(
+            { error: 'Internal Server Error', details: error instanceof Error ? error.message : String(error) },
+            { status: 500 }
+        );
     }
 }
