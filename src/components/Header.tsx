@@ -7,9 +7,10 @@ export default function Header() {
                 Duo-kidz
             </Link>
             <nav>
-                <Link href="#portfolio">Portfolio</Link>
-                <Link href="#booking">Book Shoot</Link>
-                <Link href="#contact">Contact</Link>
+                <Link href="/#portfolio">Portfolio</Link>
+                <Link href="/scouting">Get Scouted</Link>
+                <Link href="/#booking">Book Shoot</Link>
+                <Link href="/#contact">Contact</Link>
             </nav>
         </header>
     );
