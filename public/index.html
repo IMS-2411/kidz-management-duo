@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Duo-kidz — Premium Photography</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="High-end photography portfolio specializing in duo shoots." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap");
+
+    :root {
+      /* Palette - LIGHT THEME */
+      --color-bg: #ffffff;
+      --color-surface: #f4f4f4;
+      --color-text: #1a1a1a;
+      --color-muted: #666666;
+      --color-accent: #cd9b6a;
+      /* Copper/Gold */
+      --color-accent-hover: #e0b07e;
+
+      /* Spacing & Layout */
+      --radius: 4px;
+      --container-width: 1400px;
+      --nav-height: 80px;
+
+      /* Effects */
+      --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.1);
+      /* Lighter shadow for light theme */
+      --transition-slow: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      --transition-med: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Flatpickr Theme - Default Light (Overrides removed) */
+    .flatpickr-calendar {
+      box-shadow: var(--shadow-soft) !important;
+      border: none !important;
+    }
+
+    .flatpickr-day.selected,
+    .flatpickr-day.startRange,
+    .flatpickr-day.endRange,
+    .flatpickr-day.selected.inRange,
+    .flatpickr-day.startRange.inRange,
+    .flatpickr-day.endRange.inRange,
+    .flatpickr-day:hover,
+    .flatpickr-day:focus {
+      background: var(--color-accent) !important;
+      border-color: var(--color-accent) !important;
+    }
+
+    /* Calendar Custom Colors */
+    .flatpickr-day.available-day {
+      background: #4caf50 !important;
+      /* Green */
+      border-color: #4caf50 !important;
+      color: #fff !important;
+      font-weight: 700;
+    }
+
+    .flatpickr-day.unavailable-day {
+      background: #ffebee !important;
+      /* Light Red */
+      color: #d32f2f !important;
+      /* Red text */
+      pointer-events: none;
+      /* Make unclickable */
+      opacity: 0.6;
+    }
+
+    .flatpickr-day.selected {
+      background: #1b5e20 !important;
+      /* Darker Green for selected */
+      border-color: #1b5e20 !important;
+    }
+
+    /* Time Slots Grid */
+    .time-slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      padding: 1rem;
+      background: var(--color-surface);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: var(--radius);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .time-slot-btn {
+      padding: 0.5rem;
+      background: #4caf50;
+      /* Green */
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .time-slot-btn:hover {
+      background: #43a047;
+      transform: translateY(-1px);
+    }
+
+    .time-slot-btn.selected {
+      background: #1b5e20;
+      /* Dark Green */
+      box-shadow: 0 0 0 2px var(--color-accent);
+    }
+
+    .time-slot-btn:disabled {
+      background: #e0e0e0;
+      color: #9e9e9e;
+      cursor: not-allowed;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Montserrat", sans-serif;
+      /* Updated Font */
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      font-weight: 600;
+      /* Bold as requested */
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      /* Extra Bold */
+      line-height: 1.1;
+      color: var(--color-text);
+      /* Ensure headers use dark text */
+      text-transform: uppercase;
+      /* Often looks better with Mont Bold */
+    }
+
+    /* Adjust header text color which was previously forced to white */
+    .logo {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      font-style: normal;
+      color: var(--color-text);
+      text-transform: uppercase;
+    }
+
+    /* ... existing global styles ... */
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color var(--transition-med);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* UTILS */
+    .container {
+      width: 90%;
+      max-width: var(--container-width);
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2.5rem;
+      background: transparent;
+      border: 2px solid var(--color-accent);
+      /* Thicker border for bold look */
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--transition-med);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    /* NAV */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.9);
+      /* White glassmorphism */
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      /* Light border */
+    }
+
+    .logo {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-text);
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+    }
+
+    nav a:hover {
+      opacity: 1;
+      color: var(--color-accent);
+    }
+
+    /* HERO SLIDER */
+    .hero {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slider-wrapper {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.1);
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+      z-index: 1;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Default position, can be overridden per slide if needed */
+      object-position: center 30%;
+      filter: brightness(0.65);
+    }
+
+    /* Moving Elements Placeholder Structure */
+    /* This allows future independent movement of image layers */
+    .slide-layers {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 1rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease-out 0.5s forwards;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* PORTFOLIO GRID */
+    .section-padding {
+      padding: 8rem 0;
+    }
+
+    .section-header {
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.8rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .portfolio-item {
+      position: relative;
+      aspect-ratio: 4/5;
+      /* Modern portrait ratio */
+      overflow: hidden;
+      background: var(--color-surface);
+      cursor: pointer;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    /* BOOKING & CONTACT */
+    .booking-section {
+      background: #ffffff;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .booking-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 1rem;
+      background: var(--color-surface);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: var(--color-text);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      background: #fff;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text);
+    }
+
+    .blocked-msg {
+      color: firebrick;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    footer {
+      padding: 4rem 1rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--color-muted);
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .booking-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      /* Could add hamburger later */
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="#" class="logo">Duo-kidz</a>
+    <nav>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#booking">Book Shoot</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="slider-wrapper">
+      <!-- Slide 1 -->
+      <div class="slide active">
+        <div class="slide-layers"><!-- Add moving elements here --></div>
+        <img src="FX5A8335p.jpg" alt="Fashion Duo 1">
+      </div>
+      <!-- Slide 2 -->
+      <div class="slide">
+        <div class="slide-layers"><!-- Add moving elements here --></div>
+        <img src="beeld2.jpg" alt="Fashion Duo 2">
+      </div>
+      <!-- Slide 3 -->
+      <div class="slide">
+        <div class="slide-layers"><!-- Add moving elements here --></div>
+        <img src="beeld3.jpg?v=1" alt="Fashion Duo 3">
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <h1>Moments in Motion</h1>
+      <p>Capturing the unique bond and style of duo photography.</p>
+      <a href="#portfolio" class="btn">View Portfolio</a>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section-padding container">
+    <div class="section-header">
+      <p>Selected Works</p>
+      <h2>The Collection</h2>
+    </div>
+
+    <div class="grid">
+      <div class="portfolio-item">
+        <img src="thumb1.jpg" alt="Portfolio 1">
+        <div class="portfolio-overlay">View</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="thumb2.jpg" alt="Portfolio 2">
+        <div class="portfolio-overlay">View</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="thumb3.jpg" alt="Portfolio 3">
+        <div class="portfolio-overlay">View</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="thumb4.jpg" alt="Portfolio 4">
+        <div class="portfolio-overlay">View</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="thumb5.jpg?v=1" alt="Portfolio 5">
+        <div class="portfolio-overlay">View</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="thumb6.jpg" alt="Portfolio 6">
+        <div class="portfolio-overlay">View</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="booking-section section-padding">
+    <div class="container booking-wrapper">
+      <div class="booking-info">
+        <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+          <p>Availability</p>
+          <h2>Book Your Session</h2>
+        </div>
+        <p style="color: var(--color-muted); max-width: 400px; margin-bottom: 2rem;">
+          We open specific dates each month for duo sessions. Secure your spot early.
+          For special requests or editorial work, please contact us directly.
+        </p>
+
+        <div style="margin-top: 2rem;">
+          <p style="color: var(--color-text); font-weight: 700; margin-bottom: 0.5rem;">Contact</p>
+          <a href="mailto:email@duo-kidz.nl" style="color: var(--color-accent); font-weight: 700;">email@duo-kidz.nl</a>
+        </div>
+      </div>
+
+      <form id="bookingForm" class="booking-form">
+        <div class="form-group">
+          <label for="bookingDate">Choose a Date</label>
+          <small style="display:block; margin-bottom:0.5rem; color:var(--color-muted); font-size: 0.8rem;">Available:
+            Sat & Sun (Green)</small>
+          <input type="text" id="bookingDate" class="form-control" placeholder="Select Date" required>
+          <small id="dateNote" class="blocked-msg">That date is not available.</small>
+        </div>
+
+        <div class="form-group">
+          <label>Choose a Time</label>
+          <input type="hidden" id="bookingTime" name="time" required>
+          <div id="timeSlotsContainer" class="time-slots-grid">
+            <p style="grid-column: 1/-1; text-align:center; color:var(--color-muted); font-size:0.9rem; padding: 1rem;">
+              Select a date to view available times</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" placeholder="Your Email" required>
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Process Payment</button>
+      </form>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <p>&copy; 2025 Duo-kidz Photography. All rights reserved.</p>
+      <div style="margin-top: 1rem; font-size: 0.8rem;">
+        <a href="terms.html" style="margin-right: 1rem; border-bottom: 1px solid transparent;">Algemene Voorwaarden</a>
+        <a href="privacy.html" style="border-bottom: 1px solid transparent;">Privacyverklaring</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script>
+    // Initialize Stripe
+    // REPLACE WITH YOUR PUBLISHABLE KEY
+    const stripe = Stripe('pk_test_ADD_YOUR_KEY_HERE');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- Slider Logic ---
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      const intervalTime = 6000;
+
+      const nextSlide = () => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      };
+      setInterval(nextSlide, intervalTime);
+
+      // --- Booking Logic ---
+      const form = document.getElementById("bookingForm");
+      const dateInput = document.getElementById("bookingDate");
+      const timeInput = document.getElementById("bookingTime");
+      const timeSlotsContainer = document.getElementById("timeSlotsContainer");
+      const dateNote = document.getElementById("dateNote");
+
+      // Define Time Ranges: 13:00-18:00 AND 18:30-21:00
+      const timeRanges = [
+        { start: 13 * 60, end: 18 * 60 },      // 1:00 PM - 6:00 PM
+        { start: 18 * 60 + 30, end: 21 * 60 }  // 6:30 PM - 9:00 PM
+      ];
+
+      function generateTimeSlots() {
+        timeSlotsContainer.innerHTML = "";
+        let hasSlots = false;
+
+        timeRanges.forEach(range => {
+          for (let minutes = range.start; minutes <= range.end; minutes += 30) {
+            const h = Math.floor(minutes / 60);
+            const m = minutes % 60;
+            const timeString = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "time-slot-btn";
+            btn.textContent = timeString;
+
+            btn.addEventListener("click", () => {
+              // Deselect all
+              document.querySelectorAll(".time-slot-btn").forEach(b => b.classList.remove("selected"));
+              // Select this
+              btn.classList.add("selected");
+              // Set value
+              timeInput.value = timeString;
+            });
+
+            timeSlotsContainer.appendChild(btn);
+            hasSlots = true;
+          }
+        });
+
+        if (!hasSlots) {
+          timeSlotsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:var(--color-muted);">No slots available.</p>';
+        }
+      }
+
+      // Initialize Flatpickr
+      const fp = flatpickr(dateInput, {
+        minDate: "today",
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "F j, Y",
+        disableMobile: true, // Force custom calendar on mobile
+        // Disable all except Sat(6) and Sun(0)
+        disable: [
+          function (date) {
+            // return true to disable if NOT Sat or Sun
+            return (date.getDay() !== 0 && date.getDay() !== 6);
+          }
+        ],
+        onDayCreate: function (dObj, dStr, fp, dayElem) {
+          const day = dayElem.dateObj.getDay();
+          if (day === 0 || day === 6) {
+            // Sat or Sun -> Green
+            dayElem.classList.add("available-day");
+          } else {
+            // Others -> Red/Unavailable
+            dayElem.classList.add("unavailable-day");
+          }
+        },
+        onChange: function (selectedDates, dateStr, instance) {
+          dateInput.setCustomValidity("");
+          dateNote.style.display = "none";
+          timeInput.value = ""; // Reset time
+          generateTimeSlots();
+        }
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const selectedDate = dateInput.value;
+        const selectedTime = timeInput.value;
+
+        // Validate Time
+        if (!selectedTime) {
+          alert("Please select a time slot.");
+          return;
+        }
+
+        if (!selectedDate) return;
+
+        // Show loading state
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerText;
+        submitBtn.innerText = "Processing...";
+        submitBtn.disabled = true;
+
+        try {
+          const response = await fetch('/create-checkout-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ date: selectedDate, time: selectedTime }),
+          });
+
+          const session = await response.json();
+
+          if (session.error) {
+            alert(session.error);
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
+            return;
+          }
+
+          // Redirect to Stripe
+          const result = await stripe.redirectToCheckout({ sessionId: session.id });
+
+          if (result.error) {
+            alert(result.error.message);
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Something went wrong. Please try again.');
+          submitBtn.innerText = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    });
+  </script>
+
+</html>
