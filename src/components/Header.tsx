@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 
 export default function Header() {
@@ -9,8 +10,15 @@ export default function Header() {
 
     return (
         <header>
-            <Link href="/" className="logo">
-                kin portraits
+            <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
+                <Image
+                    src="/kin-logo.png"
+                    alt="KIN portraits"
+                    width={180}
+                    height={60}
+                    priority
+                    style={{ objectFit: 'contain', height: '50px', width: 'auto' }}
+                />
             </Link>
 
             {/* Desktop Nav */}
