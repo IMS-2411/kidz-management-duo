@@ -10,7 +10,7 @@ export default function Header() {
     return (
         <header>
             <Link href="/" className="logo">
-                KIN portraits
+                kin portraits
             </Link>
 
             {/* Desktop Nav */}

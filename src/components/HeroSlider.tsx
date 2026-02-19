@@ -55,7 +55,7 @@ export default function HeroSlider() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 1 }}
                 >
-                    KIN portraits
+                    kin portraits
                 </motion.h1>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

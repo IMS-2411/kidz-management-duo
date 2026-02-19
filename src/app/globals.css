@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Space+Grotesk:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap");
 
 :root {
   /* Palette - LIGHT THEME */
@@ -6,9 +6,8 @@
   --color-surface: #f4f4f4;
   --color-text: #1a1a1a;
   --color-muted: #666666;
-  --color-accent: #cd9b6a;
-  /* Copper/Gold */
-  --color-accent-hover: #e0b07e;
+  --color-accent: #000000;
+  --color-accent-hover: #222222;
 
   /* Spacing & Layout */
   --radius: 4px;
@@ -16,7 +15,7 @@
   --nav-height: 80px;
 
   /* Effects */
-  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.1);
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.05);
   /* Lighter shadow for light theme */
   --transition-slow: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
   --transition-med: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -46,7 +45,7 @@
   /* Green */
   border-color: #4caf50 !important;
   color: #fff !important;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .flatpickr-day.unavailable-day {
@@ -88,7 +87,7 @@
   border-radius: 4px;
   cursor: pointer;
   font-family: inherit;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.85rem;
   transition: all 0.2s;
   text-align: center;
@@ -123,27 +122,23 @@ html {
 
 body {
   font-family: "Montserrat", sans-serif;
-  /* Updated Font */
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  font-weight: 600;
-  /* Bold as requested */
+  font-weight: 400;
 }
 
 h1,
 h2,
 h3 {
   font-family: "Montserrat", sans-serif;
-  font-weight: 800;
-  /* Extra Bold */
+  font-weight: 500;
   line-height: 1.1;
   color: var(--color-text);
-  /* Ensure headers use dark text */
-  text-transform: uppercase;
-  /* Often looks better with Mont Bold */
+  text-transform: none;
+  letter-spacing: 0.02em;
 }
 
 /* UTILS */
@@ -158,14 +153,13 @@ h3 {
   align-items: center;
   justify-content: center;
   padding: 1rem 2.5rem;
-  background: transparent;
-  border: 2px solid var(--color-accent);
-  /* Thicker border for bold look */
-  color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  color: #fff;
+  text-transform: none;
+  letter-spacing: 0.05em;
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-med);
   position: relative;
@@ -173,8 +167,8 @@ h3 {
 }
 
 .btn:hover {
-  background: var(--color-accent);
-  color: #fff;
+  background: transparent;
+  color: var(--color-accent);
 }
 
 /* NAV */
@@ -200,9 +194,10 @@ header {
 .logo {
   font-family: "Montserrat", sans-serif;
   font-size: 1.5rem;
-  font-weight: 800;
+  font-weight: 500;
   color: var(--color-text);
-  text-transform: uppercase;
+  text-transform: none;
+  letter-spacing: 0.3em;
 }
 
 nav {
