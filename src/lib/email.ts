@@ -13,7 +13,7 @@ export async function sendConfirmationEmail(
 ) {
     const sendSmtpEmail = new Brevo.SendSmtpEmail();
 
-    sendSmtpEmail.subject = "Booking Confirmation - Kidz Management Duo";
+    sendSmtpEmail.subject = "Booking Confirmation - KIN portraits";
     sendSmtpEmail.htmlContent = `
     <html><body>
         <h1>Booking Confirmed!</h1>
@@ -26,18 +26,20 @@ export async function sendConfirmationEmail(
           <li><strong>Remaining Balance:</strong> €${remainingAmount.toFixed(2)}</li>
         </ul>
         <p>You will receive a payment link for the remaining balance 24 hours before your shoot.</p>
-        <p>Kind regards,<br>The Kidz Management Team</p>
+        <p>Kind regards,<br>The KIN portraits Team</p>
     </body></html>
   `;
-    sendSmtpEmail.sender = { "name": "Kidz Management", "email": "bookings@kidzmanagement.nl" }; // Update with verified sender
+    sendSmtpEmail.sender = { "name": "KIN portraits", "email": "bookings@kidzmanagement.nl" }; // Update with verified sender
     sendSmtpEmail.to = [{ "email": email, "name": duoName }];
 
-    try {
-        const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
-        console.log('Brevo API called successfully. Returned data: ' + JSON.stringify(data));
-    } catch (error) {
-        console.error('Brevo API Error:', error);
-    }
+    // SIMULATION MODE (No API Key yet)
+    // try {
+    //     const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
+    //     console.log('Brevo API called successfully. Returned data: ' + JSON.stringify(data));
+    // } catch (error) {
+    //     console.error('Brevo API Error:', error);
+    // }
+    console.log(`[SIMULATION] Confirmation Email to ${email} (${duoName})`);
 }
 
 export async function sendBalancePaymentEmail(
@@ -55,16 +57,18 @@ export async function sendBalancePaymentEmail(
           <p>Your shoot is coming up tomorrow! Please finalize your booking by paying the remaining balance.</p>
           <p><a href="${paymentLink}"><strong>Click here to pay the remaining balance</strong></a></p>
           <p>This payment must be completed before the shoot.</p>
-          <p>Kind regards,<br>The Kidz Management Team</p>
+          <p>Kind regards,<br>The KIN portraits Team</p>
       </body></html>
     `;
-    sendSmtpEmail.sender = { "name": "Kidz Management", "email": "bookings@kidzmanagement.nl" };
+    sendSmtpEmail.sender = { "name": "KIN portraits", "email": "bookings@kidzmanagement.nl" };
     sendSmtpEmail.to = [{ "email": email, "name": duoName }];
 
-    try {
-        const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
-        console.log('Brevo API called successfully. Returned data: ' + JSON.stringify(data));
-    } catch (error) {
-        console.error('Brevo API Error:', error);
-    }
+    // SIMULATION MODE
+    // try {
+    //     const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
+    //     console.log('Brevo API called successfully. Returned data: ' + JSON.stringify(data));
+    // } catch (error) {
+    //     console.error('Brevo API Error:', error);
+    // }
+    console.log(`[SIMULATION] Balance Email to ${email}: ${paymentLink}`);
 }

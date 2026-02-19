@@ -16,7 +16,7 @@ export default function ContactPage() {
                 >
                     <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>CONTACT</h1>
                     <p style={{ marginBottom: '2rem', fontSize: '1.1rem', opacity: 0.8 }}>
-                        Kidz Management B.V.<br />
+                        KIN portraits B.V.<br />
                         Verrijn Stuartweg 26M<br />
                         1112AX Amsterdam
                     </p>

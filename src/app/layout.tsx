@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Duo-kidz — Premium Photography',
+  title: 'KIN portraits — Premium Photography',
   description: 'High-end photography portfolio specializing in duo shoots.',
 };
 

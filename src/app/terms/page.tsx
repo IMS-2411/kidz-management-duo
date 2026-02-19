@@ -7,13 +7,13 @@ export default function TermsPage() {
             </div>
 
             <div style={{ maxWidth: '800px', margin: '0 auto', lineHeight: '1.8', fontSize: '0.9rem' }}>
-                <p><strong>General Booking Conditions Kidz Management B.V.</strong></p>
+                <p><strong>General Booking Conditions KIN portraits B.V.</strong></p>
 
                 <h3 style={{ marginTop: '2rem', marginBottom: '0.5rem' }}>Article 1: GENERAL</h3>
-                <p>1.1 These booking conditions apply to all agreements between a client and models booked through Kidz Management B.V. Kidz Management B.V. is authorized to represent the interests of the models.</p>
+                <p>1.1 These booking conditions apply to all agreements between a client and models booked through KIN portraits B.V. KIN portraits B.V. is authorized to represent the interests of the models.</p>
 
                 <h3 style={{ marginTop: '2rem', marginBottom: '0.5rem' }}>Article 2: BOOKINGS</h3>
-                <p>2.1 A booking agreement is a contract between the client and the Model established through Kidz Management B.V. The invoice amount includes standard rates, royalties, and a 20% agency fee.</p>
+                <p>2.1 A booking agreement is a contract between the client and the Model established through KIN portraits B.V. The invoice amount includes standard rates, royalties, and a 20% agency fee.</p>
                 <p>2.3 Models can be booked for a full day (8 hours) or a half day (4 hours).</p>
                 <p>2.4 No-show fee is &euro;175 per missed booking if the model fails to appear without notice.</p>
 

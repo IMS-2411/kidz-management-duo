@@ -7,14 +7,14 @@ export default function PrivacyPage() {
             </div>
 
             <div style={{ maxWidth: '800px', margin: '0 auto', lineHeight: '1.8' }}>
-                <p><strong>(Kidz Management B.V.), located in Vught, is responsible for the processing of personal data as outlined below.</strong></p>
+                <p><strong>(KIN portraits B.V.), located in Vught, is responsible for the processing of personal data as outlined below.</strong></p>
 
                 <h3 style={{ marginTop: '2rem', marginBottom: '1rem' }}>GDPR compliance</h3>
-                <p>These terms apply when one or more registered children (hereinafter referred to as &quot;models&quot;) are booked through Kidz Management B.V. or when Kidz Management B.V. services are otherwise utilized. Kidz Management B.V. is authorized to represent the interests of the models in and out of legal contexts.</p>
+                <p>These terms apply when one or more registered children (hereinafter referred to as &quot;models&quot;) are booked through KIN portraits B.V. or when KIN portraits B.V. services are otherwise utilized. KIN portraits B.V. is authorized to represent the interests of the models in and out of legal contexts.</p>
                 <p>When visiting our website, certain non-personal data is stored for organizational and technical reasons (anonymized stats). Visiting our site may involve placing a &#39;cookie&#39; to facilitate navigation.</p>
 
                 <h3 style={{ marginTop: '2rem', marginBottom: '1rem' }}>Your personal data</h3>
-                <p>Kidz Management B.V. processes your personal data provided for the following purposes:</p>
+                <p>KIN portraits B.V. processes your personal data provided for the following purposes:</p>
                 <ul style={{ listStyle: 'disc', paddingLeft: '20px', marginBottom: '1rem' }}>
                     <li>To contact you via phone, SMS, or email to invite you for a photo or film shoot.</li>
                     <li>To inform you about changes in activities.</li>

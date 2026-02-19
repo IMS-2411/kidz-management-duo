@@ -63,8 +63,8 @@ export default function ScoutingPage() {
                 <div className="booking-info">
                     <h3 style={{ marginBottom: '1.5rem' }}>We are looking for unique duos.</h3>
                     <p style={{ color: 'var(--color-muted)', marginBottom: '1.5rem' }}>
-                        Are you a twin, sibling pair, or best friends with a unique look?
-                        Face Fuzion is always scouting for new talent for our specialized portrait sessions and campaigns.
+                        Thank you for your interest in "KIN portraits".
+                        KIN portraits is always scouting for new talent for our specialized portrait sessions and campaigns.
                     </p>
                     <p style={{ color: 'var(--color-muted)', marginBottom: '2rem' }}>
                         Please fill out the form with your details.

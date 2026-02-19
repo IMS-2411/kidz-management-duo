@@ -55,15 +55,16 @@ export default function HeroSlider() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 1 }}
                 >
-                    Face Fuzion
+                    KIN portraits
                 </motion.h1>
-                <motion.p
-                    initial={{ opacity: 0, y: 30 }}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7, duration: 1 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    style={{ fontSize: '1.2rem', marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem' }}
                 >
                     Capturing the unique bond and style of duo photography.
-                </motion.p>
+                </motion.div>
                 <motion.a
                     href="#portfolio"
                     className="btn"
