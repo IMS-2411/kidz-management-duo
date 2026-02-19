@@ -11,12 +11,12 @@ export default function BookingSection() {
 
     // Time Ranges: 13:00-18:00 AND 18:30-21:00
     const timeRanges = [
-        { start: 13 * 60, end: 18 * 60 },      // 1:00 PM - 6:00 PM
-        { start: 18 * 60 + 30, end: 21 * 60 }  // 6:30 PM - 9:00 PM
+        { start: 13 * 60, end: 18 * 60 },
+        { start: 18 * 60 + 30, end: 21 * 60 },
     ];
 
     const generateTimeSlots = () => {
-        const slots = [];
+        const slots: string[] = [];
         for (const range of timeRanges) {
             for (let minutes = range.start; minutes <= range.end; minutes += 30) {
                 const h = Math.floor(minutes / 60);
@@ -33,7 +33,7 @@ export default function BookingSection() {
     const handleBooking = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!date || !time) {
-            alert('Please select a date and time.');
+            alert('Selecteer een datum en tijd.');
             return;
         }
 
@@ -59,11 +59,11 @@ export default function BookingSection() {
             if (session.url) {
                 window.location.href = session.url;
             } else {
-                alert('Could not retrieve payment URL.');
+                alert('Kon geen betaal-link ophalen.');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Something went wrong.');
+            alert('Er ging iets mis.');
         } finally {
             setLoading(false);
         }
@@ -74,64 +74,90 @@ export default function BookingSection() {
             <div className="container booking-wrapper">
                 <div className="booking-info">
                     <div className="section-header" style={{ textAlign: 'left', marginBottom: '2rem' }}>
-                        <p>Availability</p>
-                        <h2>Book Your Session</h2>
+                        <p>Beschikbaarheid</p>
+                        <h2>Boek je sessie</h2>
                     </div>
-                    <p style={{ color: 'var(--color-muted)', maxWidth: '400px', marginBottom: '2rem' }}>
-                        We open specific dates each month for duo sessions. Secure your spot early.
-                        For special requests or editorial work, please contact us directly.
+
+                    <p style={{ color: 'var(--color-muted)', maxWidth: '420px', marginBottom: '2rem' }}>
+                        We openen elke maand een beperkt aantal data voor private portretsessies.
+                        Kies een datum, selecteer een tijd en bevestig je boeking veilig.
                     </p>
 
                     <div style={{ marginTop: '2rem' }}>
-                        <p style={{ color: 'var(--color-text)', fontWeight: 700, marginBottom: '0.5rem' }}>Contact</p>
-                        <a href="mailto:info@kidzmanagement.nl" style={{ color: 'var(--color-accent)', fontWeight: 700 }}>info@kidzmanagement.nl</a>
+                        <p style={{ color: 'var(--color-text)', fontWeight: 500, marginBottom: '0.5rem' }}>
+                            Contact
+                        </p>
+                        <a
+                            href="mailto:info@kidzmanagement.nl"
+                            style={{
+                                color: 'var(--color-text)',
+                                fontWeight: 500,
+                                textDecoration: 'underline',
+                                textUnderlineOffset: '4px',
+                            }}
+                        >
+                            info@kidzmanagement.nl
+                        </a>
                     </div>
                 </div>
 
                 <form className="booking-form" onSubmit={handleBooking}>
                     <div className="form-group">
-                        <label htmlFor="bookingDate">Choose a Date</label>
-                        <small style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--color-muted)', fontSize: '0.8rem' }}>
-                            Available: Sat & Sun (Green)
+                        <label htmlFor="bookingDate">Kies een datum</label>
+                        <small
+                            style={{
+                                display: 'block',
+                                marginBottom: '0.5rem',
+                                color: 'var(--color-muted)',
+                                fontSize: '0.8rem',
+                            }}
+                        >
+                            Beschikbare dagen zijn gemarkeerd (weekenden).
                         </small>
+
                         <Flatpickr
                             className="form-control"
-                            placeholder="Select Date"
+                            placeholder="Selecteer datum"
                             options={{
-                                minDate: "today",
+                                minDate: 'today',
                                 disableMobile: true,
                                 disable: [
                                     function (date) {
-                                        return (date.getDay() !== 0 && date.getDay() !== 6);
-                                    }
+                                        return date.getDay() !== 0 && date.getDay() !== 6;
+                                    },
                                 ],
                                 onDayCreate: function (dObj, dStr, fp, dayElem) {
                                     const day = dayElem.dateObj.getDay();
-                                    if (day === 0 || day === 6) {
-                                        dayElem.classList.add("available-day");
-                                    } else {
-                                        dayElem.classList.add("unavailable-day");
-                                    }
-                                }
+                                    if (day === 0 || day === 6) dayElem.classList.add('available-day');
+                                    else dayElem.classList.add('unavailable-day');
+                                },
                             }}
                             value={date || undefined}
                             onChange={([selectedDate]) => {
                                 setDate(selectedDate);
-                                setTime(''); // Reset time when date changes
+                                setTime('');
                             }}
                             required
                         />
                     </div>
 
                     <div className="form-group">
-                        <label>Choose a Time</label>
+                        <label>Kies een tijd</label>
                         <div className="time-slots-grid">
                             {!date ? (
-                                <p style={{ gridColumn: '1/-1', textAlign: 'center', color: 'var(--color-muted)', fontSize: '0.9rem', padding: '1rem' }}>
-                                    Select a date to view available times
+                                <p
+                                    style={{
+                                        gridColumn: '1/-1',
+                                        textAlign: 'center',
+                                        color: 'var(--color-muted)',
+                                        fontSize: '0.9rem',
+                                        padding: '1rem',
+                                    }}
+                                >
+                                    Selecteer eerst een datum om tijden te bekijken.
                                 </p>
                             ) : (
-                                timeSlots.map(slot => (
+                                timeSlots.map((slot) => (
                                     <button
                                         key={slot}
                                         type="button"
@@ -146,17 +172,17 @@ export default function BookingSection() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="name" className="form-control" placeholder="Your Name" required />
+                        <label htmlFor="name">Naam</label>
+                        <input type="text" id="name" className="form-control" placeholder="Jouw naam" required />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="email" className="form-control" placeholder="Your Email" required />
+                        <label htmlFor="email">E-mail</label>
+                        <input type="email" id="email" className="form-control" placeholder="Jouw e-mail" required />
                     </div>
 
                     <button type="submit" className="btn" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
-                        {loading ? 'Processing...' : 'Process Payment'}
+                        {loading ? 'Bezig…' : 'Ga door naar betaling'}
                     </button>
                 </form>
             </div>

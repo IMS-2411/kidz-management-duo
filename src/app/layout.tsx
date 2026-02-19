@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-// globals.css is already imported by default usually, but we make sure
 import './globals.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import CustomCursor from '../components/CustomCursor';
 
 export const metadata: Metadata = {
-  title: 'KIN portraits — Premium Photography',
-  description: 'High-end photography portfolio specializing in duo shoots.',
+  title: 'kin portraits — editorial familieportretten',
+  description: 'Editorial familieportretten die verwantschap, verbinding en aanwezigheid vastleggen.',
 };
 
 export default function RootLayout({
@@ -20,6 +20,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <CustomCursor />
       </body>
     </html>
   );
