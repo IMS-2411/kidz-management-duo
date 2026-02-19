@@ -516,9 +516,14 @@ footer {
   }
 }
 
-.instagram-grid {
-  grid-template-columns: 1fr;
-}
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .instagram-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* CUSTOM CURSOR */
