@@ -25,7 +25,8 @@ export default function CustomCursor() {
         const loop = () => {
             x += (tx - x) * 0.18;
             y += (ty - y) * 0.18;
-            el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+            el.style.setProperty('--x', `${x}px`);
+            el.style.setProperty('--y', `${y}px`);
             raf = requestAnimationFrame(loop);
         };
 
