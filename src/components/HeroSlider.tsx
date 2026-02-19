@@ -55,7 +55,7 @@ export default function HeroSlider() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 1 }}
                 >
-                    Unique portraits
+                    Unieke portretten
                 </motion.h1>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -63,7 +63,7 @@ export default function HeroSlider() {
                     transition={{ duration: 0.8, delay: 0.3 }}
                     style={{ fontSize: '1.2rem', marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem' }}
                 >
-                    Capturing the unique bond and style of duo photography.
+                    Het vastleggen van de unieke band en stijl van duo fotografie.
                 </motion.div>
                 <motion.a
                     href="#portfolio"
@@ -72,7 +72,7 @@ export default function HeroSlider() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9, duration: 1 }}
                 >
-                    View Portfolio
+                    Bekijk Portfolio
                 </motion.a>
             </div>
         </section>

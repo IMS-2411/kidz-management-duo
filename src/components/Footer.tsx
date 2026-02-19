@@ -12,11 +12,11 @@ export default function Footer() {
                     <p><a href="mailto:info@kidzmanagement.nl" style={{ color: 'var(--color-accent)' }}>info@kidzmanagement.nl</a></p>
                 </div>
 
-                <p style={{ opacity: 0.6 }}>&copy; 2026 KIN portraits. All rights reserved.</p>
+                <p style={{ opacity: 0.6 }}>&copy; 2026 KIN portraits. Alle rechten voorbehouden.</p>
 
                 <div style={{ marginTop: '1rem', fontSize: '0.8rem', display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
                     <Link href="/scouting" style={{ borderBottom: '1px solid transparent', color: 'inherit', textDecoration: 'none' }}>
-                        Get Scouted
+                        Word gescout
                     </Link>
                     <a href="https://kidzzz.amsterdam" target="_blank" rel="noopener noreferrer" style={{ borderBottom: '1px solid transparent', color: 'inherit', textDecoration: 'none' }}>
                         Webshop
@@ -25,10 +25,10 @@ export default function Footer() {
                         Contact
                     </Link>
                     <Link href="/terms" style={{ borderBottom: '1px solid transparent', color: 'inherit', textDecoration: 'none' }}>
-                        Terms & Conditions
+                        Algemene Voorwaarden
                     </Link>
                     <Link href="/privacy" style={{ borderBottom: '1px solid transparent', color: 'inherit', textDecoration: 'none' }}>
-                        Privacy Policy
+                        Privacybeleid
                     </Link>
                 </div>
             </div>

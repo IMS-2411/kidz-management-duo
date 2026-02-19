@@ -7,14 +7,14 @@ const publications = [
     {
         id: 1,
         title: 'Vogue Kids',
-        date: 'March 2025',
+        date: 'Maart 2025',
         image: 'https://placehold.co/400x500/e0e0e0/1a1a1a?text=Vogue+Kids',
-        description: 'Spring Collection Feature'
+        description: 'Lente Collectie Feature'
     },
     {
         id: 2,
         title: 'Milk Magazine',
-        date: 'January 2025',
+        date: 'Januari 2025',
         image: 'https://placehold.co/400x500/e0e0e0/1a1a1a?text=Milk+Magazine',
         description: 'Editorial Spread'
     },
@@ -35,9 +35,9 @@ const publications = [
     {
         id: 5,
         title: 'Luna Mag',
-        date: 'October 2024',
+        date: 'Oktober 2024',
         image: 'https://placehold.co/400x500/e0e0e0/1a1a1a?text=Luna+Mag',
-        description: 'Autumn Vibes'
+        description: 'Herfst Vibes'
     },
     {
         id: 6,
@@ -52,8 +52,8 @@ export default function PublicationsPage() {
     return (
         <div className="container section-padding">
             <div className="section-header">
-                <p>Press & Features</p>
-                <h2>Publications</h2>
+                <p>Pers & Publicaties</p>
+                <h2>Publicaties</h2>
             </div>
 
             <div className="grid-container">

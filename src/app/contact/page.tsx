@@ -28,22 +28,22 @@ export default function ContactPage() {
 
                     <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '3rem' }}>
                         <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <input type="text" id="name" className="form-control" placeholder="Your Name" />
+                            <label htmlFor="name">Naam</label>
+                            <input type="text" id="name" className="form-control" placeholder="Jouw naam" />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" id="email" className="form-control" placeholder="your@email.com" />
+                            <label htmlFor="email">E-mail</label>
+                            <input type="email" id="email" className="form-control" placeholder="jouw@email.com" />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="subject">Subject</label>
-                            <input type="text" id="subject" className="form-control" placeholder="Subject" />
+                            <label htmlFor="subject">Onderwerp</label>
+                            <input type="text" id="subject" className="form-control" placeholder="Onderwerp" />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="message">Message</label>
-                            <textarea id="message" rows={5} className="form-control" placeholder="Your Message"></textarea>
+                            <label htmlFor="message">Bericht</label>
+                            <textarea id="message" rows={5} className="form-control" placeholder="Jouw bericht"></textarea>
                         </div>
-                        <button type="submit" className="btn" style={{ alignSelf: 'flex-start' }}>Send Message</button>
+                        <button type="submit" className="btn" style={{ alignSelf: 'flex-start' }}>Verstuur Bericht</button>
                     </form>
                 </motion.div>
 

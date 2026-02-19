@@ -24,9 +24,9 @@ export default function Header() {
             {/* Desktop Nav */}
             <nav className="desktop-nav">
                 <Link href="/#portfolio">Portfolio</Link>
-                <Link href="/publications">Publications</Link>
+                <Link href="/publications">Publicaties</Link>
                 <Link href="/contact">Contact</Link>
-                <Link href="/#booking">Book Shoot</Link>
+                <Link href="/#booking">Boek Shoot</Link>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -41,9 +41,9 @@ export default function Header() {
             {/* Mobile Menu Overlay */}
             <div className={`mobile-menu-overlay ${isOpen ? 'open' : ''}`}>
                 <Link href="/#portfolio" onClick={() => setIsOpen(false)}>Portfolio</Link>
-                <Link href="/publications" onClick={() => setIsOpen(false)}>Publications</Link>
+                <Link href="/publications" onClick={() => setIsOpen(false)}>Publicaties</Link>
                 <Link href="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
-                <Link href="/#booking" onClick={() => setIsOpen(false)}>Book Shoot</Link>
+                <Link href="/#booking" onClick={() => setIsOpen(false)}>Boek Shoot</Link>
             </div>
         </header>
     );
