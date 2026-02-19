@@ -532,19 +532,18 @@ body {
 }
 
 .custom-cursor {
-  width: 14px;
-  height: 14px;
-  border: 1px solid #000;
+  width: 12px;
+  height: 12px;
+  background-color: #000;
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  transition: transform 0.1s ease;
+  transition: transform 0.15s ease, opacity 0.15s ease, width 0.15s ease, height 0.15s ease;
   z-index: 9999;
 }
 
 .custom-cursor.is-hover {
   transform: translate(-50%, -50%) scale(2.5);
-  background-color: rgba(0, 0, 0, 0.05);
-  border-color: transparent;
+  opacity: 0.2;
 }
