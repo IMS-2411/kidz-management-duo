@@ -1,39 +1,54 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/light.css';
 
 export default function BookingSection() {
     const [date, setDate] = useState<Date | null>(null);
     const [time, setTime] = useState<string>('');
+    const [names, setNames] = useState<string>(''); // namen van personen in de shoot
+    const [email, setEmail] = useState<string>('');
     const [loading, setLoading] = useState(false);
 
-    // Time Ranges: 13:00-18:00 AND 18:30-21:00
-    const timeRanges = [
-        { start: 13 * 60, end: 18 * 60 },
-        { start: 18 * 60 + 30, end: 21 * 60 },
-    ];
+    // In je huidige backend heet dit nog "duoName".
+    // Voor kin portraits gebruiken we dit als sessie-label.
+    const duoName = 'kin portraits';
 
-    const generateTimeSlots = () => {
+    const timeRanges = useMemo(
+        () => [
+            { start: 13 * 60, end: 18 * 60 },
+            { start: 18 * 60 + 30, end: 21 * 60 },
+        ],
+        []
+    );
+
+    const timeSlots = useMemo(() => {
         const slots: string[] = [];
         for (const range of timeRanges) {
             for (let minutes = range.start; minutes <= range.end; minutes += 30) {
                 const h = Math.floor(minutes / 60);
                 const m = minutes % 60;
-                const timeString = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
-                slots.push(timeString);
+                const t = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+                slots.push(t);
             }
         }
         return slots;
-    };
-
-    const timeSlots = generateTimeSlots();
+    }, [timeRanges]);
 
     const handleBooking = async (e: React.FormEvent) => {
         e.preventDefault();
+
         if (!date || !time) {
             alert('Selecteer een datum en tijd.');
+            return;
+        }
+        if (!names.trim()) {
+            alert('Vul de namen in van de personen die op de foto komen.');
+            return;
+        }
+        if (!email.trim()) {
+            alert('Vul je e-mail in.');
             return;
         }
 
@@ -45,21 +60,27 @@ export default function BookingSection() {
             const response = await fetch('/api/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ date: formattedDate, time }),
+                body: JSON.stringify({
+                    duoName,
+                    names,
+                    email,
+                    date: formattedDate,
+                    time,
+                }),
             });
 
-            const session = await response.json();
+            const data = await response.json();
 
-            if (session.error) {
-                alert(session.error);
-                setLoading(false);
+            if (data?.error) {
+                alert(data.error);
                 return;
             }
 
-            if (session.url) {
-                window.location.href = session.url;
+            // jouw API geeft: { checkoutUrl: payment.getCheckoutUrl() }
+            if (data?.checkoutUrl) {
+                window.location.href = data.checkoutUrl;
             } else {
-                alert('Kon geen betaal-link ophalen.');
+                alert('Kon geen Mollie checkout-link ophalen.');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -74,13 +95,17 @@ export default function BookingSection() {
             <div className="container booking-wrapper">
                 <div className="booking-info">
                     <div className="section-header" style={{ textAlign: 'left', marginBottom: '2rem' }}>
-                        <p>Beschikbaarheid</p>
-                        <h2>Boek je sessie</h2>
+                        <p>Boeken</p>
+                        <h2>Boek een shoot</h2>
                     </div>
 
-                    <p style={{ color: 'var(--color-muted)', maxWidth: '420px', marginBottom: '2rem' }}>
-                        We openen elke maand een beperkt aantal data voor private portretsessies.
-                        Kies een datum, selecteer een tijd en bevestig je boeking veilig.
+                    <p style={{ color: 'var(--color-muted)', maxWidth: '460px', marginBottom: '1.5rem' }}>
+                        Je bevestigt je boeking met een <strong>aanbetaling van 50%</strong>.
+                        Het resterende bedrag betaal je pas <strong>na de fotoshoot</strong>, vlak vóór levering van de bewerkte foto’s.
+                    </p>
+
+                    <p style={{ color: 'var(--color-muted)', maxWidth: '460px', marginBottom: 0 }}>
+                        Na een succesvolle betaling ontvang je per e-mail een <strong>PDF met instructies</strong> ter voorbereiding op de shoot.
                     </p>
 
                     <div style={{ marginTop: '2rem' }}>
@@ -103,16 +128,9 @@ export default function BookingSection() {
 
                 <form className="booking-form" onSubmit={handleBooking}>
                     <div className="form-group">
-                        <label htmlFor="bookingDate">Kies een datum</label>
-                        <small
-                            style={{
-                                display: 'block',
-                                marginBottom: '0.5rem',
-                                color: 'var(--color-muted)',
-                                fontSize: '0.8rem',
-                            }}
-                        >
-                            Beschikbare dagen zijn gemarkeerd (weekenden).
+                        <label htmlFor="bookingDate">Datum</label>
+                        <small style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--color-muted)', fontSize: '0.8rem' }}>
+                            Beschikbare dagen worden gemarkeerd.
                         </small>
 
                         <Flatpickr
@@ -122,8 +140,8 @@ export default function BookingSection() {
                                 minDate: 'today',
                                 disableMobile: true,
                                 disable: [
-                                    function (date) {
-                                        return date.getDay() !== 0 && date.getDay() !== 6;
+                                    function (d) {
+                                        return d.getDay() !== 0 && d.getDay() !== 6;
                                     },
                                 ],
                                 onDayCreate: function (dObj, dStr, fp, dayElem) {
@@ -142,18 +160,10 @@ export default function BookingSection() {
                     </div>
 
                     <div className="form-group">
-                        <label>Kies een tijd</label>
+                        <label>Tijd</label>
                         <div className="time-slots-grid">
                             {!date ? (
-                                <p
-                                    style={{
-                                        gridColumn: '1/-1',
-                                        textAlign: 'center',
-                                        color: 'var(--color-muted)',
-                                        fontSize: '0.9rem',
-                                        padding: '1rem',
-                                    }}
-                                >
+                                <p style={{ gridColumn: '1/-1', textAlign: 'center', color: 'var(--color-muted)', fontSize: '0.9rem', padding: '1rem' }}>
                                     Selecteer eerst een datum om tijden te bekijken.
                                 </p>
                             ) : (
@@ -172,18 +182,38 @@ export default function BookingSection() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="name">Naam</label>
-                        <input type="text" id="name" className="form-control" placeholder="Jouw naam" required />
+                        <label htmlFor="names">Namen (personen op de foto)</label>
+                        <input
+                            type="text"
+                            id="names"
+                            className="form-control"
+                            placeholder="Bijv. Emma &amp; Sophie / Mila, papa, oma"
+                            value={names}
+                            onChange={(e) => setNames(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="email">E-mail</label>
-                        <input type="email" id="email" className="form-control" placeholder="Jouw e-mail" required />
+                        <input
+                            type="email"
+                            id="email"
+                            className="form-control"
+                            placeholder="jij@voorbeeld.nl"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <button type="submit" className="btn" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
-                        {loading ? 'Bezig…' : 'Ga door naar betaling'}
+                        {loading ? 'Bezig…' : 'Betaal aanbetaling (50%)'}
                     </button>
+
+                    <small style={{ display: 'block', marginTop: '0.75rem', color: 'var(--color-muted)', fontSize: '0.8rem', lineHeight: 1.4 }}>
+                        Je wordt doorgestuurd naar een beveiligde Mollie betaalomgeving (iDEAL).
+                    </small>
                 </form>
             </div>
         </section>
