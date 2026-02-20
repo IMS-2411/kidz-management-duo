@@ -14,10 +14,10 @@ export default function Header() {
                 <Image
                     src="/kin-logo.png"
                     alt="KIN portraits"
-                    width={180}
-                    height={60}
+                    width={210}
+                    height={70}
                     priority
-                    style={{ objectFit: 'contain', height: '50px', width: 'auto' }}
+                    style={{ objectFit: 'contain', height: '65px', width: 'auto' }}
                 />
             </Link>
 
